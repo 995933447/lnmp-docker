@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+  php-fpm:
+    build: ./php-fpm
+    volumes:
+      - ./shared:/var/www
+    depends_on:
+      - mysql    
+      - redis
+      - nginx
+    networks:
+      - mysql      
+      - redis
+    ports:
+      - "80:8001"      
+  
+  php-cli: 
+    build: "./php-cli"
+    volumes:
+      - "./shared:/var/www"
+    depends_on:
+      - mysql   
+      - redis 
+    networks:
+      - mysql      
+      - redis    
+  
+    mysql:
+     build: ./mysql
+     volumes: 
+       - ./mysql/data:/var/lib/mysql
+     networks:
+       - mysql      
+   
+   redis:
+     build: ./redis
+     networks:
+       - redis      
+   
+   nginx:
+     build: ./nginx
+     volumes:
+       - ./shared:/data/www    
+     links:
+       - php-fpm:local-fpm      
+
+networks:
+   mysql:
+   redis:        
