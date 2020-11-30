@@ -37,6 +37,7 @@ class NotifyCPOrderFinishLogController extends AdminController
         $grid->model()->orderBy('created_at', 'DESC');
 
         $grid->column('id', __('Id'))->sortable();
+
         $grid->column('order_id', __('Order id'))->width(200);
 
         $grid->column('try_num', __('Try num'))->display(function ($tryNum) {

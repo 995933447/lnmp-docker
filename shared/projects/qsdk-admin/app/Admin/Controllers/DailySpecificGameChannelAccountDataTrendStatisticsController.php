@@ -38,6 +38,7 @@ class DailySpecificGameChannelAccountDataTrendStatisticsController extends Admin
             $filter->date('created_at', __('Created at'))->datetime();
             $filter->between('updated_at', __('Updated at'))->datetime();
             $filter->between('belong_date', __('Belong date'))->datetime();
+
         });
 
         $grid->selector(function (Grid\Tools\Selector $selector) {
@@ -60,7 +61,7 @@ class DailySpecificGameChannelAccountDataTrendStatisticsController extends Admin
         });
 
         $grid->model()->orderBy('created_at', 'DESC');
-        $grid->column('id', __('Id'))->sortable();
+        $grid->column('id', __('Id'));
         $grid->column('game.name', __('Game app'));
         $grid->column('channel.name', __('Post channel'));
         $grid->column('players_increments', __('Players increments'));

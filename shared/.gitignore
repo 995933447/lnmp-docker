@@ -1,0 +1,4 @@
+./projects/*
+./mysql/data/*
+./redis/data/*
+./nginx/logs/*

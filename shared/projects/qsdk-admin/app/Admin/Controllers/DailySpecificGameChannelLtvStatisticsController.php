@@ -28,6 +28,19 @@ class DailySpecificGameChannelLtvStatisticsController extends AdminController
     {
         $grid = new Grid(new DailySpecificGameChannelLtvStatistics());
 
+
+        $grid->filter(function ($filter) {
+            $filter->where(function ($query) {
+                $query->whereHas('gameApp', function ($query) {
+                    $query->where('name', 'like', "%{$this->input}%");
+                });
+            }, __('Game app'));
+
+
+            $filter->date('created_at', __('Created at'))->datetime();
+            $filter->between('updated_at', __('Updated at'))->datetime();
+        });
+
         $grid->selector(function (Grid\Tools\Selector $selector) {
             $postChannelOptions = [];
 
@@ -49,6 +62,16 @@ class DailySpecificGameChannelLtvStatisticsController extends AdminController
             $filter->date('created_at', __('Created at'))->datetime();
             $filter->between('updated_at', __('Updated at'))->datetime();
             $filter->between('belong_date', __('Belong date'))->datetime();
+        });
+
+        $grid->selector(function (Grid\Tools\Selector $selector) {
+            $postChannelOptions = [];
+
+            foreach (PostChannel::query()->where('status', 1)->get() as $channel) {
+                $postChannelOptions[$channel->id] = $channel->name;
+            }
+
+            $selector->select('post_channel_id', __('Post channel'), $postChannelOptions);
         });
 
         $grid->disableCreateButton();

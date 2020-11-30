@@ -62,6 +62,7 @@ class DailySpecificGameChannelPlayersRetentionStatisticsController extends Admin
         $grid->model()->orderBy('created_at', 'DESC');
 
         $grid->column('id', __('Id'))->sortable();
+
         $grid->column('game.name', __('Game app'));
         $grid->column('channel.name', __('Post channel'));
         $grid->column('belong_date', __('Belong date'));

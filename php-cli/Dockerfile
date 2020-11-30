@@ -1,4 +1,5 @@
 FROM php:7.4-cli
+COPY ./conf/php.ini /etc/php.ini
 RUN docker-php-source extract \
 	&& apt update && apt install -y \
         libfreetype6-dev \
@@ -16,4 +17,6 @@ WORKDIR /tmp
 RUN apt update && apt install unzip -y && apt install wget -y\ 
     && wget https://github.com/swoole/swoole-src/archive/v4.5.4.zip \
     && unzip v4.5.4.zip && mv swoole-src-4.5.4 /usr/src/php/ext/swoole && docker-php-ext-install swoole
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 VOLUME ["/var/www"]
+CMD sh -c "while true;do sleep 20;done"

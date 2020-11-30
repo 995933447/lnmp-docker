@@ -4,7 +4,7 @@ services:
   php-fpm:
     build: ./php-fpm
     volumes:
-      - ./shared:/var/www
+      - ./shared/projects:/var/www
     depends_on:
       - mysql
       - redis      
@@ -13,10 +13,10 @@ services:
       - redis
       - nginx       
 
-  php-cli: 
+  php-cli:
     build: "./php-cli"
     volumes:
-      - "./shared:/var/www" 
+      - "./shared/projects:/var/www"
     depends_on:
       - mysql
       - redis  
@@ -27,30 +27,35 @@ services:
   mysql:
      build: ./mysql
      volumes: 
-       - ./mysql/data:/var/lib/mysql
+       - ./shared/mysql/data:/var/lib/mysql
      networks:
-       - mysql       
+       - mysql
+     ports:
+       - 3306:3306
 
-  redis: 
+  redis:
      build: ./redis
+     volumes:
+       - ./shared/redis/data:/data
+       - ./shared/redis/conf:/usr/local/etc/redis
      networks:
-       - redis        
+       - redis
 
   nginx:
      build: ./nginx
      volumes:
-       - ./shared:/data/www
-       - ./shared/nginx:/var/log/nginx   
+       - ./shared/projects:/data/www
+       - ./shared/nginx/logs:/var/log/nginx
+       - ./shared/nginx/conf:/etc/nginx/conf.d
      ports:
-       - ${NGINX_LOCAL_PORT}:80
+       - ${WEB_PORT_MAP_80}:80
+       - ${WEB_PORT_MAP_8080}:8080
      depends_on:
        - php-fpm
      networks:
        - nginx
-     links:
-       - php-fpm:local-fpm         
 
 networks:
   mysql:
   redis:  
-  nginx:  
+  nginx:

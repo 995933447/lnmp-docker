@@ -60,7 +60,6 @@ class GameAppPostedChannelArgumentController extends AdminController
         });
 
         $grid->model()->orderBy('created_at', 'DESC');
-
         $grid->column('id', __('Id'))->sortable();
         $grid->column('gameApp.name', __('Game app'));
         $grid->column('channel.name', __('Post channel'));

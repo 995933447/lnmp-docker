@@ -94,6 +94,7 @@ class OrderLogController extends AdminController
         $grid->model()->orderBy('created_at', 'DESC');
 
         $grid->column('id', __('Id'))->sortable();
+
         $grid->column('game_app_id', __('Game app id'));
         $grid->column('gameApp.name', __('Game app'));
         $grid->column('channel.name', __('Post channel'));

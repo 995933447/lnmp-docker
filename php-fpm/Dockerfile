@@ -1,4 +1,5 @@
 FROM php:7.4-fpm
+COPY ./conf/php.ini /etc/php.ini
 RUN docker-php-source extract \
 	&& apt update && apt install -y \
         libfreetype6-dev \

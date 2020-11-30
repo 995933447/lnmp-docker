@@ -60,8 +60,7 @@ class DailySpecificGameChannelChargedTrendStatisticsController extends AdminCont
         });
 
         $grid->model()->orderBy('created_at', 'DESC');
-
-        $grid->column('id', __('Id'))->sortable();
+        $grid->column('id', __('Id'));
         $grid->column('channel.name', __('Post channel'));
         $grid->column('game.name', __('Game app'));
         $grid->column('charged_players_num', __('Charged players num'));
