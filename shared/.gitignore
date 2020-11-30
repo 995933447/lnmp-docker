@@ -1,4 +1,4 @@
-./projects/*
-./mysql/data/*
-./redis/data/*
-./nginx/logs/*
+/projects/*
+/mysql/data/*
+/redis/data/*
+/nginx/logs/*
